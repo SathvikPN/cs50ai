@@ -50,6 +50,9 @@ while True:
         playO = mediumFont.render("Play as O", True, black)
         playORect = playO.get_rect()
         playORect.center = playOButton.center
+
+    # Set the window name
+        pygame.display.set_caption("Tic-Tac-Toe Game (distributed by CS50, tweaked by Sathvik)")
         pygame.draw.rect(screen, white, playOButton)
         screen.blit(playO, playORect)
 
