@@ -6,8 +6,9 @@ alias py="python3"
 if [ -d "./venv" ]; then
     # Check if VIRTUAL_ENV points to ./venv
     if [ "$VIRTUAL_ENV" != "$(pwd)/venv" ]; then
-        source ./venv/bin/activate && 
-        pip3 install -r requirements.txt
+        source ./venv/bin/activate
+        pip3 install -r requirements.txt > /dev/null 2>&1 || echo "Error installing requirements."
+    
     fi
 else
     echo "virtual environment ./venv not found. better create one."
@@ -38,7 +39,6 @@ function get_cs50_code() {
     echo "downloaded: ${zip_file%.zip}/" 
     echo
 }
-
 
 # NOTES 
 # view CS50 AI - https://cs50.harvard.edu/ai/2024/projects/0/degrees/
