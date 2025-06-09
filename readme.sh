@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# usage: source readme.sh
+
 alias py="python3"
 
 # activate virtual environment from current directory if not already activated
@@ -15,7 +17,7 @@ else
     exit 1
 fi
 
-function get_cs50_code() {
+function cs50_getcode() {
     # Check if the CS50 code is provided as an argument
     if [ -z "$1" ]; then
         echo "Example: get_cs50_code https://cs50.harvard.edu/ai/2024/projects/0/degrees/degrees.zip"
