@@ -34,7 +34,7 @@ function cs50_getcode() {
     unzip -o "$zip_file" && 
 
     # Delete the original zip file
-    rm -f "$zip_file"  && 
+    echo "Removing $zip_file..." && rm "$zip_file" &&
 
     # print the folder name that was created without .zip extension
     echo &&
