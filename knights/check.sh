@@ -5,3 +5,5 @@ source ../venv/bin/activate
 
 check50 ai50/projects/2024/x/knights
 # submit50 ai50/projects/2024/x/knights
+
+# for succint solutions - refer https://github.com/shedloadofcode/cs50-artificial-intelligence/blob/main/1.%20Knowledge/knights/puzzle.py
