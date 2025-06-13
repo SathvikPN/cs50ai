@@ -199,7 +199,21 @@ class MinesweeperAI():
             5) add any new sentences to the AI's knowledge base
                if they can be inferred from existing knowledge
         """
-        raise NotImplementedError
+        # raise NotImplementedError -------------------------------------------------- 
+        self.moves_made.add(cell)
+        self.mark_safe(cell)
+        self.add_sentence_to_knowledge(cell, count)
+        self.update_cells_safe_or_mines_with_knowledge()
+        self.add_inferred_sentences()
+
+    def add_sentence_to_knowledge(self, cell, count):
+        pass
+
+    def update_cells_safe_or_mines_with_knowledge(self):
+        pass
+    
+    def add_inferred_sentences(self):
+        pass
 
     def make_safe_move(self):
         """
@@ -210,7 +224,10 @@ class MinesweeperAI():
         This function may use the knowledge in self.mines, self.safes
         and self.moves_made, but should not modify any of those values.
         """
-        raise NotImplementedError
+        # raise NotImplementedError --------------------------------------------
+        for safe_cell in self.safes:
+            if safe_cell not in self.moves_made:
+                return safe_cell
 
     def make_random_move(self):
         """
@@ -219,4 +236,16 @@ class MinesweeperAI():
             1) have not already been chosen, and
             2) are not known to be mines
         """
-        raise NotImplementedError
+        # raise NotImplementedError ----------------------------------------------
+        # UNKNOWN cells exist apart from known_safe and known_mine
+        available_moves = []
+        for i in range(self.height):
+            for j in range(self.width):
+                move = (i,j)
+                if move not in self.moves_made and move not in self.mines:
+                    available_moves.append(move)
+        if len(available_moves) > 0:
+            return random.choice(available_moves)
+        return None
+                
+
