@@ -109,7 +109,8 @@ class Sentence():
         # {a,b,c} = 3 
         if len(self.cells) == self.count:
             return self.cells 
-
+        return set()
+    
     def known_safes(self):
         """
         Returns the set of all cells in self.cells known to be safe.
@@ -118,6 +119,7 @@ class Sentence():
         # {a,b,c} = 0
         if self.count == 0:
             return self.cells
+        return set()
 
     def mark_mine(self, cell):
         """
