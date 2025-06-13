@@ -224,18 +224,15 @@ class MinesweeperAI():
 
     def add_sentence_to_knowledge(self, cell, count):
         neighbor_cells = self.get_neighbors(cell)
-        unknown_cells = set()
         for cell in neighbor_cells:
             if cell in self.mines:
                 count = count - 1
-                continue 
-            if cell in self.safes:
-                continue
-
-            # neither a known safe or a known mine, cell is unknown 
-            unknown_cells.add(cell)
-            
-        sentence = Sentence(unknown_cells, count)
+                neighbor_cells.remove(cell)
+            elif cell in self.safes:
+                neighbor_cells.remove(cell)
+        
+        # neighbor_cells that are unrevealed yet 
+        sentence = Sentence(neighbor_cells, count)
         self.knowledge.append(sentence)
 
     def update_cells_safe_or_mines_with_knowledge(self):
@@ -252,7 +249,6 @@ class MinesweeperAI():
     
     def add_inferred_sentences(self):
         pass
-
     # HELPER METHODS END --------------------------------------------------------------------
 
 
