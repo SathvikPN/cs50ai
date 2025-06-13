@@ -1,6 +1,6 @@
 import itertools
 import random
-
+import copy
 
 class Minesweeper():
     """
@@ -206,14 +206,56 @@ class MinesweeperAI():
         self.update_cells_safe_or_mines_with_knowledge()
         self.add_inferred_sentences()
 
+    # HELPER METHODS START --------------------------------------------------------------------
+    def get_neighbors(self, cell):
+        """
+        return list all neighbours of a cell that are inbound of board
+        """
+        neighbor_cells = []
+        # loop over neighbor cells 
+        for i in range(cell[0]-1, cell[0]+2):
+            for j in range(cell[1]-1, cell[1]+2):
+                # include only inbound cells
+                if i >= 0 and i < self.height and j >= 0 or j < self.width:
+                    neighbor_cells.append((i,j))
+
+        return neighbor_cells  
+    
+
     def add_sentence_to_knowledge(self, cell, count):
-        pass
+        neighbor_cells = self.get_neighbors(cell)
+        unknown_cells = set()
+        for cell in neighbor_cells:
+            if cell in self.mines:
+                count = count - 1
+                continue 
+            if cell in self.safes:
+                continue
+
+            # neither a known safe or a known mine, cell is unknown 
+            unknown_cells.add(cell)
+            
+        sentence = Sentence(unknown_cells, count)
+        self.knowledge.append(sentence)
 
     def update_cells_safe_or_mines_with_knowledge(self):
-        pass
+        for sentence in self.knowledge:
+            # all sentence cells are mines
+            if len(sentence.cells) == sentence.count:
+                for cell in copy.deepcopy(sentence.cells):
+                    self.mark_mine(cell)
+
+            # all sentence cells are safes
+            if sentence.count == 0:
+                for cell in copy.deepcopy(sentence.cells):
+                    self.mark_safe(cell)
     
     def add_inferred_sentences(self):
         pass
+
+    # HELPER METHODS END --------------------------------------------------------------------
+
+
 
     def make_safe_move(self):
         """
